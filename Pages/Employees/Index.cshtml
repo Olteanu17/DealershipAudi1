@@ -1,0 +1,39 @@
+﻿@page
+@model DealershipAudi.Pages.Employees.IndexModel
+
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<h1>Employee List</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Add New Employee</a>
+</p>
+<p>Below is the list of employees working at the dealership.</p>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Employee[0].Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Employee[0].Position)</th>
+            <th>@Html.DisplayNameFor(model => model.Employee[0].Email)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model.Employee)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => employee.Name)</td>
+                <td>@Html.DisplayFor(modelItem => employee.Position)</td>
+                <td>@Html.DisplayFor(modelItem => employee.Email)</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@employee.ID" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-page="./Details" asp-route-id="@employee.ID" class="btn btn-sm btn-info">Details</a>
+                    <a asp-page="./Delete" asp-route-id="@employee.ID" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

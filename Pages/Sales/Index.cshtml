@@ -1,0 +1,41 @@
+﻿@page
+@model DealershipAudi.Pages.Sales.IndexModel
+
+@{
+    ViewData["Title"] = "Sales";
+}
+
+<h1>List of Sales</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Record New Sale</a>
+</p>
+<p>Below is the list of all sales recorded in the dealership system.</p>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Sale[0].Car.Model)</th>
+            <th>@Html.DisplayNameFor(model => model.Sale[0].Customer.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Sale[0].SaleDate)</th>
+            <th>@Html.DisplayNameFor(model => model.Sale[0].TotalPrice)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sale in Model.Sale)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => sale.Car.Model)</td>
+                <td>@Html.DisplayFor(modelItem => sale.Customer.Name)</td>
+                <td>@Html.DisplayFor(modelItem => sale.SaleDate)</td>
+                <td>@Html.DisplayFor(modelItem => sale.TotalPrice)</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@sale.ID" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-page="./Details" asp-route-id="@sale.ID" class="btn btn-sm btn-info">Details</a>
+                    <a asp-page="./Delete" asp-route-id="@sale.ID" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

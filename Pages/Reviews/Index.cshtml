@@ -1,0 +1,41 @@
+﻿@page
+@model DealershipAudi.Pages.Reviews.IndexModel
+
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<h1>List of Reviews</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Add New Review</a>
+</p>
+<p>Below is the list of all reviews submitted by customers.</p>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Review[0].Customer.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Review[0].Car.Model)</th>
+            <th>@Html.DisplayNameFor(model => model.Review[0].Rating)</th>
+            <th>@Html.DisplayNameFor(model => model.Review[0].ReviewText)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in Model.Review)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => review.Customer.Name)</td>
+                <td>@Html.DisplayFor(modelItem => review.Car.Model)</td>
+                <td>@Html.DisplayFor(modelItem => review.Rating)</td>
+                <td>@Html.DisplayFor(modelItem => review.ReviewText)</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@review.ID" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-page="./Details" asp-route-id="@review.ID" class="btn btn-sm btn-info">Details</a>
+                    <a asp-page="./Delete" asp-route-id="@review.ID" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

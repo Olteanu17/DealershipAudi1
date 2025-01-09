@@ -1,0 +1,52 @@
+﻿@page
+@model DealershipAudi.Pages.Reviews.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Review</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Review.ID" />
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Review.CustomerID" class="control-label"></label>
+                <select asp-for="Review.CustomerID" class="form-control" asp-items="ViewBag.CustomerID"></select>
+                <span asp-validation-for="Review.CustomerID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Review.CarID" class="control-label"></label>
+                <select asp-for="Review.CarID" class="form-control" asp-items="ViewBag.CarID"></select>
+                <span asp-validation-for="Review.CarID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Review.ReviewText" class="control-label"></label>
+                <input asp-for="Review.ReviewText" class="form-control" />
+                <span asp-validation-for="Review.ReviewText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Review.Rating" class="control-label"></label>
+                <input asp-for="Review.Rating" class="form-control" />
+                <span asp-validation-for="Review.Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
