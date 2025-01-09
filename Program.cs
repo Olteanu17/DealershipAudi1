@@ -1,19 +1,32 @@
 using Microsoft.EntityFrameworkCore;
 using DealershipAudi.Data;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<DealershipAudiContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DealershipAudiContext")));
+
+// Configure the DealershipAudiContext for the main application database
+builder.Services.AddDbContext<DealershipAudiContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DealershipAudiContext")));
+
+// Configure the LibraryIdentityContext for Identity
+builder.Services.AddDbContext<LibraryIdentityContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryIdentityContext")));
+
+// Add Identity services
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+}).AddEntityFrameworkStores<LibraryIdentityContext>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -22,7 +35,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication(); // Enable authentication
+app.UseAuthorization();  // Enable authorization
 
 app.MapRazorPages();
 
